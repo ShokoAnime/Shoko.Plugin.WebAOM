@@ -1,80 +1,89 @@
 # Shoko WebAOM Renamer
 
-The first-party plugin holding the WebAOM renamer, the server's default
-relocation provider. Official server builds bundle its latest release in
-`plugins/Shoko.Plugin.WebAOM/`, where it is enabled by default and cannot be
-uninstalled. A server built from source can install it from the Shoko Core
-Repository instead (Settings → Plugin Management → Browse).
+The classic WebAOM renamer for Shoko Server, and the server's default way of
+renaming and moving your files. You describe your file names with a small
+script in the [WebAOM scripting language](https://wiki.anidb.net/WebAOM#Scripting),
+and the renamer sorts each file into a folder for its series.
 
-Report problems in the [issue tracker](https://github.com/ShokoAnime/Shoko.Plugin.WebAOM/issues)
-or on [Discord](https://discord.gg/vpeHDsg).
+Official server builds come with the plugin installed and turned on. That
+bundled copy can't be uninstalled, but a newer release installed over it can.
+If you built the server yourself, install the plugin from the Shoko Core
+Repository under Settings → Plugin Management → Browse.
 
-## What it does
+Found a problem? Open an issue in the
+[issue tracker](https://github.com/ShokoAnime/Shoko.Plugin.WebAOM/issues) or
+ask on [Discord](https://discord.gg/shokoanime).
 
-`WebAOMRenamer` is an ordinary relocation provider
-(`IRelocationProvider<WebAOMSettings>`), named "WebAOM Renamer". It names
-files with a script in the WebAOM scripting language (see
-<https://wiki.anidb.net/WebAOM#Scripting>), and picks their folder by the
-settings below.
+## Is it the right renamer for you?
 
-- **Renaming.** The script is read line by line. A `DO` line always runs its
-  action; any other line runs it only when its tests pass. `ADD` appends text
-  with the tags expanded (`%ann`, `%eng`, `%enr`, `%grp`, `%res`, `%CRC` and
-  the rest in `Constants.FileRenameTag`), `REPLACE` finds and replaces in the
-  name so far, and `FAIL` stops the rename. The file keeps its extension, and
-  invalid path characters are replaced.
-- **Moving.** With `GroupAwareSorting` off, a file goes to the folder holding
-  the series' latest episode when that folder has room, or else to the first drop
-  destination with room, in a folder named after the AniDB anime. With it on,
-  a file goes to `<group>/<series>` (or `<series>` when the group holds one
-  series) in the first drop destination; restricted series prefer a
-  destination whose path holds `Hentai`, and the rest avoid it.
+The renamer is feature-frozen. It follows the WebAOM scripting language,
+which isn't ours to extend, so it gets bug fixes but no new features. It
+works well for simple file names and the two folder layouts described below.
 
-The renamer needs the file's episodes: an unrecognized file is not renamed.
+If you want a folder structure of your own, or your files spread over
+several managed folders, try the [Lua renamer](https://github.com/Mik1ll/LuaRenamer)
+plugin, or write a relocation provider of your own.
 
-## When to use something else
+## Naming files
 
-The renamer is feature-frozen. It follows the WebAOM scripting language, which
-is not ours to extend, so it gets fixes but no new features. It is the right
-choice for basic file names and the two folder layouts above.
+The renamer reads your script one line at a time. A line starting with `DO`
+always runs; any other line runs only when its tests pass. Each line does one
+of three things:
 
-For anything more, such as a folder structure of your own or files spread
-over several managed folders, start with the
-[Lua renamer](https://github.com/Mik1ll/LuaRenamer) plugin, or write a custom
-relocation provider in C# (`IRelocationProvider`).
+- `ADD` appends text to the name, with tags filled in, such as `%ann` (the
+  anime's main title), `%eng` (its English title), `%enr` (the episode
+  number), `%epn` (the episode's English title), `%grp` (the release group),
+  `%res` (the resolution) or `%CRC` (the file's CRC32).
+- `REPLACE` finds and replaces text in the name built so far.
+- `FAIL` stops, and the file keeps its current name.
 
-## Presets
+The file always keeps its extension, and characters a path can't hold are
+replaced. The scripting language is documented on the
+[AniDB wiki](https://wiki.anidb.net/WebAOM#Scripting).
 
-Each relocation preset of the renamer holds its own `WebAOMSettings`,
-edited through the relocation preset API.
+The renamer needs to know which episodes a file holds, so a file Shoko hasn't
+recognized yet is left alone.
 
-| Setting | Default | |
+## Moving files
+
+By default, a file goes to the folder that already holds the series' latest
+episode, as long as that folder has room. Otherwise it goes to the first drop
+destination with room, in a folder named after the anime.
+
+With group aware sorting on, a file goes to `<group>/<series>` in the first
+drop destination, or just `<series>` when the group holds only one series.
+Adult series go to a destination with `Hentai` in its path when there is one,
+and other series stay out of it.
+
+## Settings
+
+Each relocation preset using the renamer has settings of its own:
+
+| Setting | Default | What it does |
 |---|---|---|
-| `MaxEpisodeLength` | `33` | Episode names longer than this, `1` to `250`, are cut short with `…`. |
-| `GroupAwareSorting` | `false` | Places files by the Shoko group structure, as above. |
-| `Script` | the sample | The WebAOM script. |
+| Max Episode Length | `33` | Episode titles longer than this (`1` to `250`) are cut short with `…`. |
+| Use Group Aware Sorting | off | Sorts files by your Shoko groups, as described above. |
+| Script | the sample | The WebAOM script that names your files. |
 
-A new preset starts with a sample script that names files like
+A new preset starts with a sample script, which gives names like
 `[Group]_Title_-_01_(1920x1080_Blu-ray_H264)_[CRC32].mkv`. When the server
-starts with no presets at all, the core creates one named "Default" with it.
-With the plugin turned off, that waits for a start with it on.
+starts with no presets at all, it creates one called "Default" from it.
 
-## Thumbnail and icon
-
-`source/Assets/thumbnail.svg` and `source/Assets/icon.svg` are embedded resources, read by
-the server through the plugin.
-
-## Building
+## For developers
 
 ```
 dotnet build Shoko.Plugin.WebAOM.slnx -c Release
 dotnet test Shoko.Plugin.WebAOM.slnx -c Release
 ```
 
-It builds against the published `Shoko.Abstractions` package. To build
-against a Shoko checkout instead, which also runs the configuration analyzer,
-pass `-p:ShokoRepositoryPath=/path/to/Shoko`.
+The plugin builds against the published `Shoko.Abstractions` package. To
+build against a Shoko checkout instead, which also runs the configuration
+analyzer, pass `-p:ShokoRepositoryPath=/path/to/Shoko`.
 
-Releases are cut by publishing a GitHub release at a `v<version>` tag on
-`stable`: the workflow builds and tests the plugin, attaches the archive and
-writes the release into the manifest on the `metadata` branch.
+The renamer is `WebAOMRenamer`, an `IRelocationProvider<WebAOMSettings>`, and
+every tag it knows is in `Constants.FileRenameTag`. The thumbnail and icon in
+`source/Assets/` are embedded in the assembly.
+
+To release, publish a GitHub release with a `v<version>` tag on `stable`. The
+workflow builds and tests the plugin, attaches the archive to the release and
+adds the release to the manifest on the `metadata` branch.
