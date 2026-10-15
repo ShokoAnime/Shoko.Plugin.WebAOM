@@ -1,9 +1,13 @@
 # Shoko WebAOM Renamer
 
-The bundled first-party plugin holding the WebAOM renamer, the server's
-default relocation provider. It ships with the server in
-`plugins/Shoko.Plugin.WebAOM/`, is enabled by default and cannot be
-uninstalled.
+The first-party plugin holding the WebAOM renamer, the server's default
+relocation provider. Official server builds bundle its latest release in
+`plugins/Shoko.Plugin.WebAOM/`, where it is enabled by default and cannot be
+uninstalled. A server built from source can install it from the Shoko Core
+Repository instead (Settings → Plugin Management → Browse).
+
+Report problems in the [issue tracker](https://github.com/ShokoAnime/Shoko.Plugin.WebAOM/issues)
+or on [Discord](https://discord.gg/vpeHDsg).
 
 ## What it does
 
@@ -57,5 +61,20 @@ With the plugin turned off, that waits for a start with it on.
 
 ## Thumbnail and icon
 
-`Assets/thumbnail.svg` and `Assets/icon.svg` are embedded resources, read by
+`source/Assets/thumbnail.svg` and `source/Assets/icon.svg` are embedded resources, read by
 the server through the plugin.
+
+## Building
+
+```
+dotnet build Shoko.Plugin.WebAOM.slnx -c Release
+dotnet test Shoko.Plugin.WebAOM.slnx -c Release
+```
+
+It builds against the published `Shoko.Abstractions` package. To build
+against a Shoko checkout instead, which also runs the configuration analyzer,
+pass `-p:ShokoRepositoryPath=/path/to/Shoko`.
+
+Releases are cut by publishing a GitHub release at a `v<version>` tag on
+`stable`: the workflow builds and tests the plugin, attaches the archive and
+writes the release into the manifest on the `metadata` branch.
