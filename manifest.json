@@ -1,0 +1,16 @@
+{
+  "$schema": "https://raw.githubusercontent.com/ShokoAnime/ShokoServer/master/Shoko.BuildTools/manifest.schema.json",
+  "id": "8c8d75f2-cd0c-5c0b-9a9e-8c2c6d3e5f1a",
+  "type": "package",
+  "name": "WebAOM",
+  "overview": "The legacy renamer, based on WebAOM's renamer. It covers basic file names and gets no new features. For a folder structure of your own or several managed folders, use the Lua renamer or a custom relocation provider.",
+  "authors": "Shoko Team",
+  "repository_url": "https://github.com/ShokoAnime/Shoko.Plugin.WebAOM",
+  "tags": [
+    "relocation-provider",
+    "renamer"
+  ],
+  "releases": [],
+  "thumbnail_url": "https://raw.githubusercontent.com/ShokoAnime/Shoko.Plugin.WebAOM/stable/source/Assets/thumbnail.svg",
+  "icon_url": "https://raw.githubusercontent.com/ShokoAnime/Shoko.Plugin.WebAOM/stable/source/Assets/icon.svg"
+}
