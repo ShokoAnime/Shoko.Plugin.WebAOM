@@ -1,16 +1,34 @@
 {
   "$schema": "https://raw.githubusercontent.com/ShokoAnime/ShokoServer/master/Shoko.BuildTools/manifest.schema.json",
-  "id": "8c8d75f2-cd0c-5c0b-9a9e-8c2c6d3e5f1a",
   "type": "package",
+  "id": "8c8d75f2-cd0c-5c0b-9a9e-8c2c6d3e5f1a",
   "name": "WebAOM",
-  "overview": "The legacy renamer, based on WebAOM's renamer. It covers basic file names and gets no new features. For a folder structure of your own or several managed folders, use the Lua renamer or a custom relocation provider.",
+  "overview": "The legacy renamer, based on WebAOM\u0027s renamer. It covers basic file names and gets no new features. For a folder structure of your own or several managed folders, use the Lua renamer or a custom relocation provider.",
   "authors": "Shoko Team",
   "repository_url": "https://github.com/ShokoAnime/Shoko.Plugin.WebAOM",
   "tags": [
+    "relocator",
     "relocation-provider",
     "renamer"
   ],
-  "releases": [],
   "thumbnail_url": "https://raw.githubusercontent.com/ShokoAnime/Shoko.Plugin.WebAOM/stable/source/Assets/thumbnail.svg",
-  "icon_url": "https://raw.githubusercontent.com/ShokoAnime/Shoko.Plugin.WebAOM/stable/source/Assets/icon.svg"
+  "icon_url": "https://raw.githubusercontent.com/ShokoAnime/Shoko.Plugin.WebAOM/stable/source/Assets/icon.svg",
+  "releases": [
+    {
+      "version": "1.0.0",
+      "tag": "v1.0.0",
+      "released_at": "2026-10-15T05:17:13.5323573Z",
+      "channel": "Stable",
+      "release_notes": "First release as a plugin of its own, moved out of the server. Renames behave as before.\n\nRequires Shoko Server with abstractions \u00606.0.0-alpha.105\u0060.",
+      "dependencies": [],
+      "archives": [
+        {
+          "runtime": "any",
+          "abstraction": "6.0.0",
+          "url": "https://github.com/ShokoAnime/Shoko.Plugin.WebAOM/releases/download/v1.0.0/WebAOM-v1.0.0-any.zip",
+          "checksum": "sha256:261d2f61651f4c0f5cf0317fc2d2734644f4f5ef454b88e001825f044a755b9d"
+        }
+      ]
+    }
+  ]
 }
