@@ -15,6 +15,22 @@
   "icon_url": "https://raw.githubusercontent.com/ShokoAnime/Shoko.Plugin.WebAOM/stable/source/Assets/icon.svg",
   "releases": [
     {
+      "version": "1.0.2",
+      "tag": "v1.0.2",
+      "released_at": "2026-10-16T06:54:59.45611Z",
+      "channel": "Stable",
+      "release_notes": "Built for the new server contract. Renames behave as before.\n\nRequires Shoko Server with abstractions \u00606.0.0-alpha.108\u0060.",
+      "dependencies": [],
+      "archives": [
+        {
+          "runtime": "any",
+          "abstraction": "6.0.0",
+          "url": "https://github.com/ShokoAnime/Shoko.Plugin.WebAOM/releases/download/v1.0.2/WebAOM-v1.0.2-any.zip",
+          "checksum": "sha256:dd2582f5af19a20fb09b1bab4132e2dfa8c1c850322a8814fea6f31534be6545"
+        }
+      ]
+    },
+    {
       "version": "1.0.1",
       "tag": "v1.0.1",
       "released_at": "2026-10-15T09:33:58.93155Z",
