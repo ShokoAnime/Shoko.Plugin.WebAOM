@@ -14,6 +14,16 @@
         <EnableDynamicLoading>true</EnableDynamicLoading>
     </PropertyGroup>
 
+    <PropertyGroup Label="Plugin">
+        <PluginGenerateClass>true</PluginGenerateClass>
+        <PluginID>8c8d75f2-cd0c-5c0b-9a9e-8c2c6d3e5f1a</PluginID>
+        <PluginName>WebAOM</PluginName>
+        <PluginOverview>The legacy renamer, based on WebAOM's renamer. It covers basic file names and gets no new features. For a folder structure of your own or several managed folders, use the Lua renamer or a custom relocation provider.</PluginOverview>
+        <PluginTags>relocator,relocation-provider,renamer</PluginTags>
+        <PluginIcon>Assets/icon.svg</PluginIcon>
+        <PluginThumbnail>Assets/thumbnail.svg</PluginThumbnail>
+    </PropertyGroup>
+
     <ItemGroup>
         <InternalsVisibleTo Include="Shoko.Plugin.WebAOM.Tests" />
     </ItemGroup>
@@ -37,15 +47,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <!-- The plugin's thumbnail and icon, read by the server through the
-             plugin. -->
-        <EmbeddedResource Include="Assets\thumbnail.svg" LogicalName="Shoko.Plugin.WebAOM.Assets.thumbnail.svg" />
-        <EmbeddedResource Include="Assets\icon.svg" LogicalName="Shoko.Plugin.WebAOM.Assets.icon.svg" />
-    </ItemGroup>
-
-    <ItemGroup>
         <!-- Injects the embedded plugin identity metadata the server reads during
-             discovery, from the `manifest.json` at the repository root. -->
-        <PackageReference Include="Shoko.BuildTools.Targets" Version="0.3.3" PrivateAssets="All" ExcludeAssets="runtime" />
+             discovery, from the `Plugin` properties above, and generates the
+             plugin class. -->
+        <PackageReference Include="Shoko.BuildTools.Targets" Version="0.6.0" PrivateAssets="All" ExcludeAssets="runtime" />
     </ItemGroup>
 </Project>
