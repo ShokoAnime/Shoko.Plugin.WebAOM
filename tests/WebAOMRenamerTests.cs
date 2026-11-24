@@ -137,6 +137,25 @@ public class WebAOMRenamerTests
     }
 
     [Fact]
+    public void Titles_KeepTheirApostrophes_AfterLaterLines()
+    {
+        var anime = Anime(
+            Title("Koneko no Chii: Ponponraa Dairyokou", TitleLanguage.Romaji, TitleType.Main),
+            Title("Chi's Sweet Adventure", TitleLanguage.English, TitleType.Official)
+        );
+        var script = """
+            DO ADD '%eng'
+            DO ADD ' - %enr'
+            DO ADD ' (%epn)'
+            """;
+
+        var result = _renamer.GetPath(Context(script, anime.Object, englishEpisodeTitle: "Chi's Mischief"));
+
+        Assert.Null(result.Error);
+        Assert.Equal("Chi's Sweet Adventure - 01 (Chi's Mischief).mkv", result.FileName);
+    }
+
+    [Fact]
     public void Tests_OnlyLookAtTheTitlesAniDBGave()
     {
         // An English title another source added to the anime is not one AniDB gave it.

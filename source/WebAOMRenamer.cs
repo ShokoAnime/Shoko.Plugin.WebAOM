@@ -1550,8 +1550,9 @@ public class WebAOMRenamer(ILogger<WebAOMRenamer> _logger, IVideoRelocationServi
     private (bool, string) PerformActionOnFileNameADD(string newFileName, string action, WebAOMSettings settings, IVideo video,
         IReleaseInfo? releaseInfo, IReadOnlyList<IAnidbEpisode> episodes, IAnidbAnime anime)
     {
-        newFileName += action;
-        newFileName = newFileName.Replace("'", string.Empty);
+        // The quotes around the text to add are dropped from that text alone, so the titles filled in by the
+        // lines before it keep their apostrophes.
+        newFileName += action.Replace("'", string.Empty);
 
         #region Anime ID
 
