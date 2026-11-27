@@ -14,6 +14,24 @@
   "icon_url": "https://raw.githubusercontent.com/ShokoAnime/Shoko.Plugin.WebAOM/stable/source/Assets/icon.svg",
   "releases": [
     {
+      "version": "1.0.5",
+      "tag": "v1.0.5",
+      "released_at": "2026-11-27T20:11:54.1695795Z",
+      "channel": "Stable",
+      "release_notes": "Built for the stable \u0060Shoko.Abstractions\u0060 \u00606.0.0\u0060 of Shoko Server 6.0.0. No other changes.\n\nRequires Shoko Server with \u0060Shoko.Abstractions\u0060 \u00606.0.0\u0060.",
+      "dependencies": [],
+      "archives": [
+        {
+          "runtime": "any",
+          "abstraction": "6.0.0",
+          "url": "https://github.com/ShokoAnime/Shoko.Plugin.WebAOM/releases/download/v1.0.5/WebAOM-v1.0.5-any.zip",
+          "checksum": "sha256:3283bdf9c0f8d22bfb243d1f9d4a36f46dbd1257d6a5f1782cdb2ce375a23bd0",
+          "packed_size": 42188,
+          "unpacked_size": 102381
+        }
+      ]
+    },
+    {
       "version": "1.0.4",
       "tag": "v1.0.4",
       "released_at": "2026-11-24T23:58:42.2171965Z",
